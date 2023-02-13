@@ -1,0 +1,51 @@
+﻿@page
+@using Simmakers.Test.ArtsiomLyshchyk.Services
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input asp-for="Username" class="form-control" disabled/>
+                        <label asp-for="Username" class="form-label"></label>
+                    </div>
+                    <div class="form-floating">
+                        <input asp-for="Input.PhoneNumber" class="form-control"/>
+                        <label asp-for="Input.PhoneNumber" class="form-label"></label>
+                        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        @if (Model.ProfileImage is not null)
+                        {
+                            <div class="col-sm-9">
+                                <img class="w-25 h-25" src="@ImageSourceHelper.GetImageSrc(Model.ProfileImage)"/>
+                            </div>
+                        }
+                        <div class="col-sm-9">
+                            <input type="file"
+                                   asp-for="@Model.Input.UploadProfileImage"
+                                   data-allowed-file-extensions="png jpg jpeg"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

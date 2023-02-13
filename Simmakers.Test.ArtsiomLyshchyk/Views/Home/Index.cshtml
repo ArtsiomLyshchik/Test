@@ -1,0 +1,31 @@
+﻿@using Simmakers.Test.ArtsiomLyshchyk.Services
+@model Simmakers.Test.ArtsiomLyshchyk.Models.UsersViewModel;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Users</h1>
+    <table class="table">
+    <tbody>
+    @foreach (var item in Model.Users)
+    {
+            <tr>
+                <td>
+                    @item.UserName
+                </td>
+                <td>
+                    @if (item.ProfileImage is not null)
+                    {
+                        <img class="w-25 h-25" src="@ImageSourceHelper.GetImageSrc(item.ProfileImage)"/>
+                    }
+                    else
+                    {
+                        <p>No Avatar</p>
+                    }
+                </td>
+            </tr>
+    }
+    </tbody>
+    </table>
+</div>
